@@ -1,12 +1,15 @@
 // import React from 'react'
 
 // import { data } from "autoprefixer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 
 const Signup = () => {
   const [formData, setFormData] = useState({});
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const HandleChanges = (e) => {
     setFormData({
       ...formData,
@@ -16,17 +19,30 @@ const Signup = () => {
 
   const SubmitForm = async (e) => {
     e.preventDefault();
-    const res = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-
-    const Data = await res.json();
-    console.log(Data)
-  };
+    try {
+      setLoading(true);
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data.success === false) {
+        setLoading(false);
+        setError(data.message);
+        return;
+      }
+      setLoading(false);
+      setError(null);
+      navigate('/sign-in');
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
+    }
+  }
   return (
     <div className="p-0 overflow-hidden mx-auto w-[100%] h-screen">
       <div className="flex justify-center items-center gap-0 w-[100%]">
@@ -64,7 +80,7 @@ const Signup = () => {
           name="username"
           id="username"
           placeholder=""
-          className="border p-1 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none"
+          className="border p-2 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none"
           onChange={HandleChanges}
         />
          <label htmlFor="email" className="font-bold font-sans text-white">Your Email</label>
@@ -73,7 +89,7 @@ const Signup = () => {
           name="email"
           id="email"
           placeholder=""
-          className="border p-1 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none"
+          className="border p-2 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none"
           onChange={HandleChanges}
         />
           <label htmlFor="password" className="font-bold font-sans text-white">Your Password</label>
@@ -82,21 +98,22 @@ const Signup = () => {
           name="password"
           id="password"
           placeholder=""
-          className="border p-1 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none"
+          className="border p-2 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none"
           onChange={HandleChanges}
         />
          <label htmlFor="phone" className="font-bold font-sans text-white">Your Mobile No.</label>
-        <input type="number" name="phone" id="phone" placeholder="" className="border p-1 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none" onChange={HandleChanges} />
-        <button className="bg-green-600 mt-5 text-white p-3 w-[300px] uppercase hover:opacity-95 disabled:opacity-80 font-serif font-bold focus:bg-transparent focus:border-green-600 focus:border-2 rounded-l-2xl rounded-tr-3xl">
-          Sign Up
+        <input type="number" name="phone" id="phone" placeholder="" className="border p-2 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none" onChange={HandleChanges} />
+        <button disabled={loading} className="bg-green-600 mt-5 text-white p-3 w-[300px] uppercase hover:opacity-95 disabled:opacity-80 font-serif font-bold focus:bg-transparent focus:border-green-600 focus:border-2 rounded-l-2xl rounded-tr-3xl">
+         {loading ? 'Loading...' : 'Sign Up'}
         </button>
       </form>
       <div className="flex gap-2 mt-5">
-        <p>Have an Account</p>
-        <Link to="/sign-in" className="text-blue-700">
+        <p className="font-bold text-black">Have an Account ? </p>
+        <Link to="/sign-in" className="text-white">
           Sign In
         </Link>
       </div>
+      {error && <p>{error}</p>}
             </div>
         </div>
       </div>
@@ -105,4 +122,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signup
