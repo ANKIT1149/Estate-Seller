@@ -43,7 +43,8 @@ const Signup = () => {
     navigate("/sign-in")
     } catch (error) {
       isLoading(false)
-      setError(error.message)
+      setError(error.message);
+
     }
 }
   return (
@@ -76,7 +77,7 @@ const Signup = () => {
               type="submit"
               className="w-[300px] h-[40px] border-2 bg-slate-200 hover:bg-transparent cursor-pointer transition-all text-black font-semibold font-serif"
             >
-              Log In With Google
+             Sign Up With Google
             </button>
           </div>
           <p className="mx-[60px] mt-4 font-bold">or</p>
@@ -92,7 +93,7 @@ const Signup = () => {
               type="submit"
               className="w-[300px] h-[40px] border-2 bg-slate-200 hover:bg-transparent cursor-pointer transition-all text-black font-semibold font-serif"
             >
-              Log In With Email Address
+              Sign Up With Email Address
             </button>
           </div>
           <img
@@ -132,7 +133,7 @@ const Signup = () => {
                 name="username"
                 id="username"
                 placeholder=""
-                className="border p-1 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none"
+                className="border p-2 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none"
                 onChange={HandleChanges}
               />
               <label htmlFor="email" className="font-bold font-sans text-white">
@@ -143,7 +144,7 @@ const Signup = () => {
                 name="email"
                 id="email"
                 placeholder=""
-                className="border p-1 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none"
+                className="border p-2 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none"
                 onChange={HandleChanges}
               />
               <label
@@ -157,7 +158,7 @@ const Signup = () => {
                 name="password"
                 id="password"
                 placeholder=""
-                className="border p-1 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none"
+                className="border p-2 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none"
                 onChange={HandleChanges}
               />
               <label htmlFor="phone" className="font-bold font-sans text-white">
@@ -168,7 +169,7 @@ const Signup = () => {
                 name="phone"
                 id="phone"
                 placeholder=""
-                className="border p-1 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none"
+                className="border p-2 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none"
                 onChange={HandleChanges}
               />
               <button disabled={loading} className="bg-green-600 mt-5 text-white p-3 w-[300px] uppercase hover:opacity-95 disabled:opacity-80 font-serif font-bold focus:bg-transparent focus:border-green-600 focus:border-2 rounded-l-2xl rounded-tr-3xl">
@@ -176,8 +177,8 @@ const Signup = () => {
               </button>
             </form>
             <div className="flex gap-2 mt-5">
-              <p>Have an Account</p>
-              <Link to="/sign-n" className="text-white">
+              <p className="font-bold">Have an Account ?</p>
+              <Link to="/sign-in" className="text-white">
                 Sign In
               </Link>
             </div>
