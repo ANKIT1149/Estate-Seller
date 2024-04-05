@@ -10,7 +10,7 @@ const Header = () => {
   // console.log("Hello World")
   const { mode, toggleMode } = useContext(ThemeContext);
   return (
-    <header className={`shadow-md ${mode === 'light' ? "bg-slate-300" : 'bg-black'} shadow-white`}>
+    <header className={`shadow-lg ${mode === 'light' ? "bg-slate-300" : 'bg-black'} shadow-white `}>
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
         <Link to="/">
           <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
