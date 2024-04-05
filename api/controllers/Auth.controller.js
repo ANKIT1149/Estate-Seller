@@ -1,6 +1,10 @@
 import User from "../Models/User.module.js";
 import bcryptjs from "bcryptjs";
 import { ErrorHandler } from "../utils/Error.js";
+<<<<<<< HEAD
+=======
+
+>>>>>>> db20cabcd2a7431600925157887fc4cb5d4de0b4
 import jwt from "jsonwebtoken"
 // import { ErrorHandler } from "../utils/Error.js";
 
