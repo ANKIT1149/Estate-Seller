@@ -1,7 +1,7 @@
 // import React from 'react'
 
 // import { data } from "autoprefixer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,11 @@ import { useNavigate } from "react-router-dom";
 const Signup = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
+<<<<<<< HEAD
   const [loading, isLoading] = useState(false);
+=======
+  const [loading, setLoading] = useState(false);
+>>>>>>> dev_Aryansh
   const navigate = useNavigate();
   const HandleChanges = (e) => {
     setFormData({
@@ -21,6 +25,7 @@ const Signup = () => {
   const SubmitForm = async (e) => {
     e.preventDefault();
     try {
+<<<<<<< HEAD
     isLoading(true)
       const res = await fetch("/api/auth/signup", {
         method: "POST",
@@ -47,6 +52,31 @@ const Signup = () => {
 
     }
 }
+=======
+      setLoading(true);
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data.success === false) {
+        setLoading(false);
+        setError(data.message);
+        return;
+      }
+      setLoading(false);
+      setError(null);
+      navigate('/sign-in');
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
+    }
+  }
+>>>>>>> dev_Aryansh
   return (
     <div className="p-0 overflow-hidden mx-auto w-[100%] h-screen">
       <div className="flex justify-center items-center gap-0 w-[100%]">
@@ -103,6 +133,7 @@ const Signup = () => {
           />
         </div>
         <div className="flex justify-center items-center  w-[70%] h-screen bg-green-900 relative">
+<<<<<<< HEAD
           <img
             src="https://t4.ftcdn.net/jpg/00/52/00/63/240_F_52006357_4yO0IU7nJ4bqShErgOCfO9kGFqko4C6y.jpg"
             alt=""
@@ -181,6 +212,53 @@ const Signup = () => {
               <Link to="/sign-in" className="text-white">
                 Sign In
               </Link>
+=======
+            <img src="https://t4.ftcdn.net/jpg/00/52/00/63/240_F_52006357_4yO0IU7nJ4bqShErgOCfO9kGFqko4C6y.jpg" alt="" className="mix-blend-multiply rotate-[180deg] transform w-[300px] absolute top-[250px] right-[0px]"/>
+            <img src="https://t4.ftcdn.net/jpg/00/52/00/63/240_F_52006357_4yO0IU7nJ4bqShErgOCfO9kGFqko4C6y.jpg" alt="" className="mix-blend-multiply rotate-[360deg] transform w-[300px] absolute top-[0px] left-[0px]"/>
+            <div className='w-[500px] h-[600px] border-2 layer rounded-tl-xl rounded-tr-3xl rounded-br-2xl z-50 shadow-md shadow-white flex justify-center items-center flex-col'>
+               <h1 className=" font-bold font-serif text-white">Please Register Your Account</h1>
+               <form onSubmit={SubmitForm} action="" className="flex flex-col gap-4 mt-[40px]">
+        <label htmlFor="username" className="font-bold font-sans text-white">Your Name</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder=""
+          className="border p-2 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none"
+          onChange={HandleChanges}
+        />
+         <label htmlFor="email" className="font-bold font-sans text-white">Your Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder=""
+          className="border p-2 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none"
+          onChange={HandleChanges}
+        />
+          <label htmlFor="password" className="font-bold font-sans text-white">Your Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder=""
+          className="border p-2 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none"
+          onChange={HandleChanges}
+        />
+         <label htmlFor="phone" className="font-bold font-sans text-white">Your Mobile No.</label>
+        <input type="number" name="phone" id="phone" placeholder="" className="border p-2 rounded-l-2xl rounded-tr-3xl w-[300px] font-serif font-semibold text-black outline-none" onChange={HandleChanges} />
+        <button disabled={loading} className="bg-green-600 mt-5 text-white p-3 w-[300px] uppercase hover:opacity-95 disabled:opacity-80 font-serif font-bold focus:bg-transparent focus:border-green-600 focus:border-2 rounded-l-2xl rounded-tr-3xl">
+         {loading ? 'Loading...' : 'Sign Up'}
+        </button>
+      </form>
+      <div className="flex gap-2 mt-5">
+        <p className="font-bold text-black">Have an Account ? </p>
+        <Link to="/sign-in" className="text-white">
+          Sign In
+        </Link>
+      </div>
+      {error && <p>{error}</p>}
+>>>>>>> dev_Aryansh
             </div>
           {/* {error && <p className=" font-bold text-white">{}</p>} */}
           </div>
@@ -190,4 +268,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signup
