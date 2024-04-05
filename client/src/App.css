@@ -43,18 +43,6 @@
 
 .layer{
     border-radius: 7px;
-<<<<<<< HEAD
-<<<<<<< HEAD
-    background: linear-gradient(rgba(5, 247, 46, 0.2), #757474);
-=======
     background: linear-gradient(rgba(22, 252, 14, 0.2), #585454);
->>>>>>> dev_Aryansh
-=======
-
-    background: linear-gradient(rgba(22, 252, 14, 0.2), #585454);
-
-    background: linear-gradient(rgba(5, 247, 46, 0.2), #757474);
-
->>>>>>> db20cabcd2a7431600925157887fc4cb5d4de0b4
   
 }
