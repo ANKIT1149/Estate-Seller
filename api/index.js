@@ -1,17 +1,16 @@
+"use strict"
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import Router from "../api/Routes/User.routes.js";
 import AuthRouter from "../api/Routes/Auth.routes.js"
-dotenv.config();
-
 const app = express();
-
+dotenv.config()
 app.listen(4000, () => {
     console.log("Server is running on port 4000");
 });
 
-mongoose.connect(process.env.MONGOOSE).then(() => {
+mongoose.connect("mongodb+srv://Aryansh:ARYANSH46277@mern-estate.ly8pgzp.mongodb.net/mern-estate?retryWrites=true&w=majority&appName=mern-estate").then(() => {
      console.log("Connected to MongoDB")
 }).catch((err) => {
     console.log(err)

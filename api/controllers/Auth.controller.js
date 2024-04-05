@@ -20,10 +20,13 @@ export const Signup = async (req, res, next) => {
 export const Signin = async (req, res, next) => {
   try {
     const {email, password} = req.body;
-    const validationUser = User.findOne({email})
+    const validationUser = await User.findOne({email})
     if(!validationUser) return next(ErrorHandler(404, "Invalid Email Address"));
     const validationPassword = bcryptjs.compareSync(password, validationUser.password)
     if(!validationPassword) return next(ErrorHandler(401, "Wrong Credential"));
+    const token = jwt.sign({id: validationUser._id}, process.env.SECRET_CODE);
+    const {passwrod: pass, ...rest} = validationUser._doc;
+    res.cookie("access_Token", token, {httpOnly: true}).status(200).json(rest)
     
   } catch (error) {
     next(error)
