@@ -57,14 +57,14 @@ const Signup = () => {
                  <div className="w-[40px] h-[40px] border-2 border-green-600 bg-green-700 flex justify-center items-center">
                     <FcGoogle size={30}/> 
                  </div>
-                 <button type="submit" className="w-[300px] h-[40px] border-2 bg-slate-200 hover:bg-transparent cursor-pointer transition-all text-black font-semibold font-serif">Log In With Google</button>
+                 <button type="submit" className="w-[300px] h-[40px] border-2 bg-slate-200 hover:bg-transparent cursor-pointer transition-all text-black font-semibold font-serif">Sign Up With Google</button>
              </div>
             <p className="mx-[60px] mt-4 font-bold">or</p>
             <div className="flex items-center justify-center mt-[10px]">
                  <div className="w-[40px] h-[40px] border-2 border-green-600 bg-green-700 flex justify-center items-center">
                     <img src="https://tse1.mm.bing.net/th?id=OIP.TW21b-CFGudjWw39HNhqcgHaEK&pid=Api&rs=1&c=1&qlt=95&w=211&h=118" alt="" className=" mix-blend-multiply"/>
                  </div>
-                 <button type="submit" className="w-[300px] h-[40px] border-2 bg-slate-200 hover:bg-transparent cursor-pointer transition-all text-black font-semibold font-serif">Log In With Email Address</button>
+                 <button type="submit" className="w-[300px] h-[40px] border-2 bg-slate-200 hover:bg-transparent cursor-pointer transition-all text-black font-semibold font-serif">Sign Up With Email Address</button>
              </div>
              <img src="https://tse2.mm.bing.net/th?id=OIP.PX82I-JuVKn_PhAvtGrLKAHaKl&pid=Api&P=0&h=180" alt="" className="w-[100px] mx-14 h-[150px] mt-10"/>
         </div>
@@ -113,6 +113,7 @@ const Signup = () => {
           Sign In
         </Link>
       </div>
+      {error && <p>{error}</p>}
             </div>
         </div>
       </div>

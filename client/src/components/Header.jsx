@@ -62,7 +62,7 @@ const Header = () => {
           <Link to="/sign-in">
             <li className="font-serif font-bold text-slate-700 hover:underline cursor-pointer">
             <NavLink
-                    to="/sign-up"
+                    to="/sign-in"
                     // onClick={() => {menuClose(false)}}
                     className={({ isActive }) =>
                     ` font-bold font-serif capitalize leading-normal ${
