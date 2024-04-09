@@ -19,7 +19,12 @@ const UserSchema = new mongoose.Schema({
     phone: {
          type: String,
          required: true,
-    }
+    },
+
+   avatar: {
+     type: String,
+     default: "https://lh3.googleusercontent.com/a/ACg8ocL84YopSLCrbWZQXbuEx-o5zIdLo3QEszYm3yfjrQddfK1-iQ=s96-c",
+   }    
 } , {timestamps: true})
 
 const User = mongoose.model("User", UserSchema);
