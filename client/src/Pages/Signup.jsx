@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 
+
 const Signup = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
@@ -57,7 +58,7 @@ const Signup = () => {
                  <div className="w-[40px] h-[40px] border-2 border-green-600 bg-green-700 flex justify-center items-center">
                     <FcGoogle size={30}/> 
                  </div>
-                 <button type="submit" className="w-[300px] h-[40px] border-2 bg-slate-200 hover:bg-transparent cursor-pointer transition-all text-black font-semibold font-serif">Sign Up With Google</button>
+                 <button type="button"  className="w-[300px] h-[40px] border-2 bg-slate-200 hover:bg-transparent cursor-pointer transition-all text-black font-semibold font-serif">Sign Up With Google</button>
              </div>
             <p className="mx-[60px] mt-4 font-bold">or</p>
             <div className="flex items-center justify-center mt-[10px]">
@@ -68,8 +69,8 @@ const Signup = () => {
              </div>
              <img src="https://tse2.mm.bing.net/th?id=OIP.PX82I-JuVKn_PhAvtGrLKAHaKl&pid=Api&P=0&h=180" alt="" className="w-[100px] mx-14 h-[150px] mt-10"/>
         </div>
-        <div className="flex justify-center items-center  w-[70%] h-screen bg-green-900 relative">
-            <img src="https://t4.ftcdn.net/jpg/00/52/00/63/240_F_52006357_4yO0IU7nJ4bqShErgOCfO9kGFqko4C6y.jpg" alt="" className="mix-blend-multiply rotate-[180deg] transform w-[300px] absolute top-[250px] right-[0px]"/>
+        <div className="flex justify-center items-center  w-[70%] h-screen overflow-y-hidden bg-green-900 relative">
+            <img src="https://t4.ftcdn.net/jpg/00/52/00/63/240_F_52006357_4yO0IU7nJ4bqShErgOCfO9kGFqko4C6y.jpg" alt="" className="mix-blend-multiply rotate-[180deg] transform w-[300px] absolute top-[200px] right-[0px]"/>
             <img src="https://t4.ftcdn.net/jpg/00/52/00/63/240_F_52006357_4yO0IU7nJ4bqShErgOCfO9kGFqko4C6y.jpg" alt="" className="mix-blend-multiply rotate-[360deg] transform w-[300px] absolute top-[0px] left-[0px]"/>
             <div className='w-[500px] h-[600px] border-2 layer rounded-tl-xl rounded-tr-3xl rounded-br-2xl z-50 shadow-md shadow-white flex justify-center items-center flex-col'>
                <h1 className=" font-bold font-serif text-white">Please Register Your Account</h1>

@@ -45,3 +45,7 @@
     border-radius: 7px;
     background: linear-gradient(rgba(22, 252, 14, 0.2), #585454);
 }
+
+::-webkit-scrollbar{
+   display: none;
+}

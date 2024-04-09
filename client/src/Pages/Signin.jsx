@@ -4,12 +4,15 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { signInStart, signInSuccess, signinFail } from "../Redux/User/UserSLice";
+import OAuth from "../components/OAuth";
 
 const Signin = () => {
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const {error, loading} = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const HandleChanges = (e) => {
     setFormData({
       ...formData,
@@ -20,7 +23,7 @@ const Signin = () => {
   const SubmitForm = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      dispatch(signInStart);
       const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: {
@@ -31,22 +34,19 @@ const Signin = () => {
       const data = await res.json();
       console.log(data);
       if (data.success === false) {
-        setLoading(false);
-        setError(data.message);
+       dispatch(signinFail(data.message))
         return;
       }
-      setLoading(false);
-      setError(null);
+      dispatch(signInSuccess(data))
       navigate('/');
     } catch (error) {
-      setLoading(false);
-      setError(error.message);
+      dispatch(signinFail(error.message));
     }
   };
 
   return (
-    <div className="p-0 overflow-hidden mx-auto w-[100%] h-screen">
-      <div className="flex justify-center items-center gap-0 w-[100%]">
+    <div className="p-0 overflow-y-hidden mx-auto w-[100%] h-screen ">
+      <div className="flex justify-center items-center gap-0 w-[100%] overflow-y-hidden">
         <div className="w-[30%] h-screen bg-white flex-wrap flex flex-col">
              <div className="flex gap-4 justify-center items-center bg-white mt-16">
              <img src="https://tse1.mm.bing.net/th?id=OIP.QF5nHGUBhZi77Kvi3iEzIwHaHa&pid=Api&P=0&h=180" alt="" className=" cursor-pointer mix-blend-multiply  border-none outline-none bg-none w-[50px]"/>
@@ -58,7 +58,7 @@ const Signin = () => {
                  <div className="w-[40px] h-[40px] border-2 border-green-600 bg-green-700 flex justify-center items-center">
                     <FcGoogle size={30}/> 
                  </div>
-                 <button type="submit" className="w-[300px] h-[40px] border-2 bg-slate-200 hover:bg-transparent cursor-pointer transition-all text-black font-semibold font-serif">Log In With Google</button>
+             <OAuth />
              </div>
             <p className="mx-[60px] mt-4 font-bold">or</p>
             <div className="flex items-center justify-center mt-[10px]">
@@ -67,7 +67,7 @@ const Signin = () => {
                  </div>
                  <button type="submit" className="w-[300px] h-[40px] border-2 bg-slate-200 hover:bg-transparent cursor-pointer transition-all text-black font-semibold font-serif">Log In With Email Address</button>
              </div>
-             <img src="https://tse2.mm.bing.net/th?id=OIP.PX82I-JuVKn_PhAvtGrLKAHaKl&pid=Api&P=0&h=180" alt="" className="w-[100px] mx-14 h-[150px] mt-10"/>
+             <img src="https://tse2.mm.bing.net/th?id=OIP.PX82I-JuVKn_PhAvtGrLKAHaKl&pid=Api&P=0&h=180" alt="" className="w-[100px] mx-14 h-[150px] mt-5"/>
         </div>
         <div className="flex justify-center items-center  w-[70%] h-screen bg-green-900 relative">
             <img src="https://t4.ftcdn.net/jpg/00/52/00/63/240_F_52006357_4yO0IU7nJ4bqShErgOCfO9kGFqko4C6y.jpg" alt="" className="mix-blend-multiply rotate-[180deg] transform w-[300px] absolute top-[250px] right-[0px]"/>
