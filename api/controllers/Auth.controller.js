@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 export const Signup = async (req, res, next) => {
   const { username, email, password, phone } = req.body;
   const hashedpassword = bcryptjs.hashSync(password, 10);
-  const hashedPhone = bcryptjs.hashSync(phone, 10)
+  const hashedPhone = bcryptjs.hashSync(phone, 10);
   const newUser = new User({
     username,
     email,
@@ -58,9 +58,13 @@ export const Google = async (req, res, next) => {
       const GeneratedPassword =
         Math.random().toString(36).slice(-8) +
         Math.random().toString(36).slice(-8);
+
       const hashedpassword = bcryptjs.hashSync(GeneratedPassword, 10);
-      const generatedPhoneNumber =   Math.random().toString(36).slice(-2) +
-      Math.random().toString(36).slice(-3);
+
+      const generatedPhoneNumber =
+        Math.random().toString(36).slice(-2) +
+        Math.random().toString(36).slice(-3);
+
       const hashedPhone = bcryptjs.hashSync(generatedPhoneNumber, 10);
       const newUser = new User({
         username:
