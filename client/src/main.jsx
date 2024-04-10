@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
    <PersistGate persistor={persistor} loading={null}>
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
   </PersistGate>
   </Provider>
 )
