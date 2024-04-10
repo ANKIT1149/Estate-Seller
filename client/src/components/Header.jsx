@@ -6,9 +6,11 @@ import { Link, NavLink } from "react-router-dom";
 import ThemeContext from "../context/ThemeContext";
 import { FiSun } from "react-icons/fi";
 import { BsFillCloudSunFill } from "react-icons/bs";
+import {useSelector} from "react-redux";
 const Header = () => {
   // console.log("Hello World")
   const { mode, toggleMode } = useContext(ThemeContext);
+  const {currentUser} = useSelector((state) => state.user)
   return (
     <header className={`shadow-lg ${mode === 'light' ? "bg-slate-300" : 'bg-black'} shadow-white `}>
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
@@ -29,7 +31,6 @@ const Header = () => {
           </div>
         </form>
         <ul className="flex gap-4">
-          <Link to="/">
             <li className="font-bold font-serif hidden sm:inline text-slate-700 hover:underline cursor-pointer">
             <NavLink
                     to="/"
@@ -43,8 +44,8 @@ const Header = () => {
                    Home
                   </NavLink>
             </li>
-          </Link>
-          <Link to="/about">
+
+
             <li className="font-serif font-bold hidden sm:inline text-slate-700 hover:underline cursor-pointer">
             <NavLink
                     to="/about"
@@ -58,11 +59,9 @@ const Header = () => {
                   About
                   </NavLink>
             </li>
-          </Link>
-          <Link to="/sign-in">
             <li className="font-serif font-bold text-slate-700 hover:underline cursor-pointer">
             <NavLink
-                    to="/sign-in"
+                    to={currentUser ? '/profile' : '/sign-in'}
                     // onClick={() => {menuClose(false)}}
                     className={({ isActive }) =>
                     ` font-bold font-serif capitalize leading-normal ${
@@ -70,11 +69,11 @@ const Header = () => {
                     } text-xl `
                   }
                   >
-                  Sign In
+                    {currentUser ? (<img src={currentUser.avatar} alt="Profile" className=" rounded-full w-7 h-7 object-cover"/>) : 'Sign In'}
+                
                   </NavLink>
           
             </li>
-          </Link>
           <button
             onClick={toggleMode}
             className="ml-3"
