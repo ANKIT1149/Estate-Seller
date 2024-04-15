@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useDispatch, useSelector } from "react-redux";
 import { useRef, useState, useEffect, useContext } from "react";
 import {
@@ -11,6 +12,12 @@ import { app } from "../Firebase";
 
 import ThemeContext from "../context/ThemeContext";
 import {
+  deleteUserSuccess,
+  deleteuserStart,
+  deleuserFailure,
+  signOutUserFailure,
+  signOutUserStart,
+  signOutUserSuccess,
   updateUserFailure,
   updateUserStart,
   updateUserSuccess,
@@ -94,10 +101,57 @@ export default function Profile() {
       dispatch(updateUserSuccess(data));
       toast.success("Updated profile page successfully");
       setTimeout(() => {
-        navigate('/')
+        navigate("/");
       }, 3000);
     } catch (error) {
       dispatch(updateUserFailure(error.mesage));
+    }
+  };
+
+  const handleDeleteUser = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(deleteuserStart());
+
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+
+      const data = await res.json();
+
+      if (data.success === false) {
+        dispatch(deleuserFailure(data.message));
+        return;
+      }
+
+      dispatch(deleteUserSuccess(data));
+      toast.success("User deleted Successfuly");
+      navigate("/sign-in");
+    } catch (error) {
+      dispatch(deleuserFailure(error.message));
+      toast.error("Account cannot be deleted");
+    }
+  };
+
+  const handleSignedoutUser = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(signOutUserStart());
+
+      const res = await fetch("/api/auth/signout");
+
+      const data = await res.json();
+
+      if (data.success === false) {
+        dispatch(signOutUserFailure(data.message));
+        return;
+      }
+      dispatch(signOutUserSuccess(data));
+      toast.success("User Signed Out SuccessFully");
+      navigate('/sign-in')
+    } catch (error) {
+      dispatch(signOutUserFailure(error.message));
+      toast.error("Sign out failed");
     }
   };
 
@@ -110,7 +164,7 @@ export default function Profile() {
       >
         Profile
       </h1>
-      <form  onSubmit={handleUpdation} className="flex flex-col gap-4">
+      <form onSubmit={handleUpdation} className="flex flex-col gap-4">
         <input
           onChange={(e) => setFile(e.target.files[0])}
           type="file"
@@ -120,7 +174,7 @@ export default function Profile() {
         />
         <img
           onClick={() => fileRef.current.click()}
-          src={formData.avatar|| currentUser.avatar}
+          src={formData.avatar || currentUser.avatar}
           alt="profile"
           className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
         />
@@ -178,8 +232,18 @@ export default function Profile() {
         </button>
       </form>
       <div className="flex justify-between mt-5">
-        <span className="text-red-700 cursor-pointer">Delete account</span>
-        <span className="text-red-700 cursor-pointer">Sign out</span>
+        <span
+          onClick={handleDeleteUser}
+          className="text-red-700 cursor-pointer"
+        >
+          Delete account
+        </span>
+        <span
+          onClick={handleSignedoutUser}
+          className="text-red-700 cursor-pointer"
+        >
+          Sign out
+        </span>
       </div>
     </div>
   );

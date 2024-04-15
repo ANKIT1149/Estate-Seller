@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 import OAuth from "../components/OAuth";
+import { toast } from "react-toastify";
 
 
 const Signup = () => {
@@ -39,10 +40,12 @@ const Signup = () => {
       }
       setLoading(false)
       setError(null);
+      toast.success("Account registered Successfully")
       navigate('/sign-in');
     } catch (error) {
       setLoading(false);
       setError(error.message);
+      toast.error(error.message)
     }
   };
   return (
