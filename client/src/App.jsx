@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import PrivateRoute from "./components/PrivateRoute";
 const App = () => {
+  // const {currentUser} = useSelector((state) => state.user)
   return (
     <ThemeProvider>
       <BrowserRouter>
@@ -26,5 +27,7 @@ const App = () => {
     </ThemeProvider>
   );
 };
+
+
 
 export default App;

@@ -1,7 +1,6 @@
 import express from "express";
 import { Google, Signin, Signup } from "../controllers/Auth.controller.js";
 
-
 const AuthRouter = express.Router();
 
 AuthRouter.post("/signup", Signup);

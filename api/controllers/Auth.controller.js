@@ -4,6 +4,8 @@ import { ErrorHandler } from "../utils/Error.js";
 import jwt from "jsonwebtoken";
 // import { ErrorHandler } from "../utils/Error.js";
 
+// signup authentication
+
 export const Signup = async (req, res, next) => {
   const { username, email, password, phone } = req.body;
   const hashedpassword = bcryptjs.hashSync(password, 10);
@@ -21,6 +23,8 @@ export const Signup = async (req, res, next) => {
     next(error);
   }
 };
+
+// Login Authentication
 
 export const Signin = async (req, res, next) => {
   try {
@@ -43,6 +47,8 @@ export const Signin = async (req, res, next) => {
     next(error);
   }
 };
+
+// Google oath authentication
 
 export const Google = async (req, res, next) => {
   try {

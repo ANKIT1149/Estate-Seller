@@ -6,7 +6,7 @@ import Router from "../api/Routes/User.routes.js";
 import AuthRouter from "../api/Routes/Auth.routes.js"
 const app = express();
 dotenv.config()
-app.listen(4000, () => {
+app.listen(3000, () => {
     console.log("Server is running on port 4000");
 });
 

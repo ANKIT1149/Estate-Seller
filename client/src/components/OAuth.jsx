@@ -8,6 +8,7 @@ import {useNavigate} from "react-router-dom"
 const OAuth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const handleGoogleCLick = async (e) => {
               e.preventDefault(); 
               try {
@@ -17,7 +18,7 @@ const OAuth = () => {
 
                  const result = await signInWithPopup(Auth, Provider);
 
-                 const res = await fetch("/api/auth/google", {
+                 const res = await fetch('/api/auth/google', {
                      method: 'POST',
                      headers: {
                          'Content-Type': 'application/json',
@@ -26,18 +27,16 @@ const OAuth = () => {
                      body:JSON.stringify({
                          name: result.user.displayName,
                          email: result.user.email,
-                         photo: result.user.photoURL
+                         photo: result.user.photoURL,
                      })
                  })
                
                  const data = await res.json();
-                 dispatch(signInSuccess(data));
-                  setTimeout(() => {
+                 dispatch(signInSuccess(data));              
                     navigate("/")
-                  }, 3000);
 
               } catch (error) {
-                  console.log("Couldn't Sign up with Google", error)
+                  console.log("Couldn't Sign up with Google")
               }
     }
   return (
