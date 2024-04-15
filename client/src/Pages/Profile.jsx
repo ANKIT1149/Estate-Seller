@@ -54,7 +54,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="p-3 max-w-lg mx-auto">
+    <div className="p-3 max-w-md mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
       <form className="flex flex-col gap-4">
         <input
@@ -85,25 +85,32 @@ export default function Profile() {
         </p>
         <input
           type="text"
-          placeholder="username"
+          placeholder="Username"
           id="username"
           className="border p-3 rounded-lg"
         />
         <input
           type="email"
-          placeholder="email"
+          placeholder="Email"
           id="email"
           className="border p-3 rounded-lg"
         />
         <input
           type="password"
-          placeholder="password"
+          placeholder="Password"
           id="password"
+          className="border p-3 rounded-lg"
+        />
+
+        <input
+          type="phone"
+          placeholder="Phone"
+          id="phone"
           className="border p-3 rounded-lg"
         />
         <button
           disabled={loading}
-          className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80"
+          className="bg-blue-800 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80 font-serif font-bold"
         >
           {loading ? "Loading..." : "Update"}
         </button>
