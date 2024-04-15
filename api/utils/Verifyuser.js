@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { ErrorHandler } from "../utils/Error.js";
 
 export const VerifyToken = (req, res, next) => {
-     const token = req.cookies.access_token;
+     const token = req.cookies.access_Token;
 
      if(!token) return next(ErrorHandler(401, 'UnAuthorized'));
 
@@ -11,7 +11,7 @@ export const VerifyToken = (req, res, next) => {
          if(err) return next(ErrorHandler(403, 'Forbiddden'));
 
          req.user = user;
-         
+
          next();
      })
 }
