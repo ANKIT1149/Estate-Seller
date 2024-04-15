@@ -4,6 +4,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
+import OAuth from "../components/OAuth";
 
 
 const Signup = () => {
@@ -58,7 +59,10 @@ const Signup = () => {
                  <div className="w-[40px] h-[40px] border-2 border-green-600 bg-green-700 flex justify-center items-center">
                     <FcGoogle size={30}/> 
                  </div>
-                 <button type="button"  className="w-[300px] h-[40px] border-2 bg-slate-200 hover:bg-transparent cursor-pointer transition-all text-black font-semibold font-serif">Sign Up With Google</button>
+                 {/* 
+                 <<button type="button"  className="w-[300px] h-[40px] border-2 bg-slate-200 hover:bg-transparent cursor-pointer transition-all text-black font-semibold font-serif">Sign Up With Google</button> */}
+              <OAuth />
+             
              </div>
             <p className="mx-[60px] mt-4 font-bold">or</p>
             <div className="flex items-center justify-center mt-[10px]">
