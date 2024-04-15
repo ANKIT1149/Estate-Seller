@@ -1,5 +1,5 @@
-import { useSelector } from "react-redux";
-import { useRef, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRef, useState, useEffect, useContext } from "react";
 import {
   getDownloadURL,
   getStorage,
@@ -9,6 +9,15 @@ import {
 
 import { app } from "../Firebase";
 
+import ThemeContext from "../context/ThemeContext";
+import {
+  updateUserFailure,
+  updateUserStart,
+  updateUserSuccess,
+} from "../Redux/User/UserSLice";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 export default function Profile() {
   const fileRef = useRef(null);
   const { currentUser, loading, error } = useSelector((state) => state.user);
@@ -16,7 +25,11 @@ export default function Profile() {
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
+  const { mode } = useContext(ThemeContext);
+  const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+  // console.log(formData)
   // firebase storage
   // allow read;
   // allow write: if
@@ -53,10 +66,51 @@ export default function Profile() {
     );
   };
 
+  const handleChanges = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleUpdation = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(updateUserStart());
+
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (data.success === false) {
+        dispatch(updateUserFailure(data.message));
+        return;
+      }
+
+      dispatch(updateUserSuccess(data));
+      toast.success("Updated profile page successfully");
+      setTimeout(() => {
+        navigate('/')
+      }, 3000);
+    } catch (error) {
+      dispatch(updateUserFailure(error.mesage));
+    }
+  };
+
   return (
-    <div className="p-3 max-w-lg mx-auto">
-      <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
-      <form className="flex flex-col gap-4">
+    <div className="p-3 max-w-md mx-auto">
+      <h1
+        className={`text-3xl font-semibold text-center my-7 ${
+          mode === "light" ? "text-black" : "text-white"
+        }`}
+      >
+        Profile
+      </h1>
+      <form  onSubmit={handleUpdation} className="flex flex-col gap-4">
         <input
           onChange={(e) => setFile(e.target.files[0])}
           type="file"
@@ -66,7 +120,7 @@ export default function Profile() {
         />
         <img
           onClick={() => fileRef.current.click()}
-          src={formData.avatar || currentUser.avatar}
+          src={formData.avatar|| currentUser.avatar}
           alt="profile"
           className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"
         />
@@ -78,32 +132,47 @@ export default function Profile() {
           ) : filePerc > 0 && filePerc < 100 ? (
             <span className="text-slate-700">{`Uploading ${filePerc}%`}</span>
           ) : filePerc === 100 ? (
-            <span className="text-green-700">Image successfully uploaded!</span>
+            <span className="text-green-700">Image successfully uploaded</span>
           ) : (
             ""
           )}
         </p>
         <input
+          onChange={handleChanges}
           type="text"
-          placeholder="username"
+          placeholder="Username"
           id="username"
-          className="border p-3 rounded-lg"
+          className="border p-3 rounded-lg font-bold font-sans"
+          defaultValue={currentUser.username}
         />
         <input
           type="email"
-          placeholder="email"
+          placeholder="Email"
           id="email"
-          className="border p-3 rounded-lg"
+          className="border p-3 rounded-lg font-bold font-sans"
+          defaultValue={currentUser.email}
+          onChange={handleChanges}
         />
         <input
           type="password"
-          placeholder="password"
+          placeholder="Password"
           id="password"
-          className="border p-3 rounded-lg"
+          className="border p-3 rounded-lg font-bold font-sans"
+          defaultValue={currentUser.password}
+          onChange={handleChanges}
+        />
+
+        <input
+          type="phone"
+          placeholder="Phone"
+          id="phone"
+          className="border p-3 rounded-lg font-bold font-sans"
+          defaultValue={currentUser.phone}
+          onChange={handleChanges}
         />
         <button
           disabled={loading}
-          className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80"
+          className="bg-blue-800 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80 font-serif font-bold"
         >
           {loading ? "Loading..." : "Update"}
         </button>
