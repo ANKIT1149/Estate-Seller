@@ -45,15 +45,15 @@ const Signin = () => {
   };
 
   return (
-    <div className="p-0 overflow-y-hidden mx-auto w-[100%] h-screen ">
-      <div className="flex justify-center items-center gap-0 w-[100%] overflow-y-hidden">
-        <div className="w-[30%] h-screen bg-white flex-wrap flex flex-col">
+    <div className="p-0 overflow-y-hidden mx-auto w-[100%] h-screen max-sm:h-auto">
+      <div className="flex justify-center items-center gap-0 w-[100%] overflow-y-hidden max-sm:flex-col">
+        <div className="w-[30%] h-screen bg-white flex-wrap flex flex-col max-sm:w-[100%]">
              <div className="flex gap-4 justify-center items-center bg-white mt-16">
              <img src="https://tse1.mm.bing.net/th?id=OIP.QF5nHGUBhZi77Kvi3iEzIwHaHa&pid=Api&P=0&h=180" alt="" className=" cursor-pointer mix-blend-multiply  border-none outline-none bg-none w-[50px]"/>
              <h1 className="font-bold font-serif capitalize text-black">Realtor Estate</h1>
              </div>
-             <h1 className="p-4 mt-8 text-2xl font-serif font-bold leading-relaxed text-green-600 text-center">Welcome To  AryanshEstate!</h1>
-             <p className="mx-14 text-justify font-bold">We provide best house in affordable prices.Here register your account and explore houses. We provide also listening option to user so you can also post the listening to sell the houses.</p>
+             <h1 className="p-4 mt-8 text-2xl font-serif font-bold leading-relaxed text-green-600 text-center max-sm:p-0">Welcome Back !</h1>
+             <p className="mx-14 text-justify font-bold max-sm:mx-auto max-sm:text-center max-sm:mt-5">We provide best house in affordable prices.Here register your account and explore houses. We provide also listening option to user so you can also post the listening to sell the houses.</p>
              <div className="flex items-center justify-center mt-[30px]">
                  <div className="w-[40px] h-[40px] border-2 border-green-600 bg-green-700 flex justify-center items-center">
                     <FcGoogle size={30}/> 
@@ -69,7 +69,7 @@ const Signin = () => {
              </div>
              <img src="https://tse2.mm.bing.net/th?id=OIP.PX82I-JuVKn_PhAvtGrLKAHaKl&pid=Api&P=0&h=180" alt="" className="w-[100px] mx-14 h-[150px] mt-5"/>
         </div>
-        <div className="flex justify-center items-center  w-[70%] h-screen bg-green-900 relative">
+        <div className="flex justify-center items-center  w-[70%] max-sm:w-[100%] h-screen bg-green-900 relative">
             <img src="https://t4.ftcdn.net/jpg/00/52/00/63/240_F_52006357_4yO0IU7nJ4bqShErgOCfO9kGFqko4C6y.jpg" alt="" className="mix-blend-multiply rotate-[180deg] transform w-[300px] absolute top-[250px] right-[0px]"/>
             <img src="https://t4.ftcdn.net/jpg/00/52/00/63/240_F_52006357_4yO0IU7nJ4bqShErgOCfO9kGFqko4C6y.jpg" alt="" className="mix-blend-multiply rotate-[360deg] transform w-[300px] absolute top-[0px] left-[0px]"/>
             <div className='w-[500px] h-[400px] border-2 layer rounded-tl-xl rounded-tr-3xl rounded-br-2xl z-50 shadow-md shadow-white flex justify-center items-center flex-col'>

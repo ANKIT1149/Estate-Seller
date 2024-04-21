@@ -7,6 +7,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import PrivateRoute from "./components/PrivateRoute";
+import CreateListening from "./Pages/CreateListening";
+// import { useSelector } from "react-redux";
 const App = () => {
   // const {currentUser} = useSelector((state) => state.user)
   return (
@@ -19,6 +21,7 @@ const App = () => {
           <Route path="/sign-up" element={<Signup />} />
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/create-Listening" element={<CreateListening />} />
           </Route>
           <Route path="/about" element={<About />} />
         </Routes>
@@ -27,7 +30,5 @@ const App = () => {
     </ThemeProvider>
   );
 };
-
-
 
 export default App;

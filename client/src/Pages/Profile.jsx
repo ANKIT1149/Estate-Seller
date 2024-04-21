@@ -23,9 +23,11 @@ import {
   updateUserSuccess,
 } from "../Redux/User/UserSLice";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Profile() {
+  // variable defined
+
   const fileRef = useRef(null);
   const { currentUser, loading, error } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
@@ -43,11 +45,15 @@ export default function Profile() {
   // request.resource.size < 2 * 1024 * 1024 &&
   // request.resource.contentType.matches('image/.*')
 
+  // defined useefffect
+
   useEffect(() => {
     if (file) {
       handleFileUpload(file);
     }
   }, [file]);
+
+  // Defined function of upload image in backend
 
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
@@ -73,9 +79,13 @@ export default function Profile() {
     );
   };
 
+  // defined function of changes in form
+
   const handleChanges = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
+
+  // define function of update the form
 
   const handleUpdation = async (e) => {
     e.preventDefault();
@@ -108,6 +118,8 @@ export default function Profile() {
     }
   };
 
+  // define function of delete theaccount
+
   const handleDeleteUser = async (e) => {
     e.preventDefault();
     try {
@@ -133,6 +145,8 @@ export default function Profile() {
     }
   };
 
+  // defined the function of delete user
+
   const handleSignedoutUser = async (e) => {
     e.preventDefault();
     try {
@@ -148,7 +162,7 @@ export default function Profile() {
       }
       dispatch(signOutUserSuccess(data));
       toast.success("User Signed Out SuccessFully");
-      navigate('/sign-in')
+      navigate("/sign-in");
     } catch (error) {
       dispatch(signOutUserFailure(error.message));
       toast.error("Sign out failed");
@@ -230,6 +244,12 @@ export default function Profile() {
         >
           {loading ? "Loading..." : "Update"}
         </button>
+
+        <Link to="/create-listening" className="">
+          <button className="bg-green-700 text-white font-serif font-bold rounded-lg mt-3 p-3 disabled:opacity-80 w-[430px]">
+            Create Listening
+          </button>
+        </Link>
       </form>
       <div className="flex justify-between mt-5">
         <span
