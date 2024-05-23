@@ -57,7 +57,7 @@ const ListeningSchema = new mongoose.Schema(
       required: true,
     },
 
-    imageUrl: {
+    imageUrls: {
       type: Array,
       required: true,
     },

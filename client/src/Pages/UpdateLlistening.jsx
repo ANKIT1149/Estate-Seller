@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ThemeContext from "../context/ThemeContext";
 import {
   getDownloadURL,
@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-const CreateListening = () => {
+const UpdateListening = () => {
   // Variable defined
   const { currentUser } = useSelector((state) => state.user);
   const { mode } = useContext(ThemeContext);
@@ -34,12 +34,11 @@ const CreateListening = () => {
     parking: false,
     furnished: false,
   });
-
+  const params = useParams();
   const [imageUploadError, setImageuploaderror] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const params = useParams()
   // const ImageRef = useRef();
 
   //   variable defined end
@@ -48,6 +47,23 @@ const CreateListening = () => {
 
   console.log(filePerc);
   console.log(formData);
+
+  useEffect(() => {
+    const fetchlisting = async () => {
+      const listingId = params.listingId;
+      console.log(listingId)
+      const res = await fetch(`/api/listening/get/${listingId}`);
+      const data = await res.json();
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
+      setFormData(data);
+      console.log(data)
+    };
+
+    fetchlisting();
+  }, []);
 
   //   upload image function
 
@@ -144,13 +160,15 @@ const CreateListening = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (formData.imageUrls.length < 1) return setError("You must upload at least one image");
+      if (formData.imageUrls.length < 1)
+        return setError("You must upload at least one image");
 
-      if (+formData.regularPrice < +formData.discountPrice) return setError("Discount price must be lower than regular price");
+      if (+formData.regularPrice < +formData.discountPrice)
+        return setError("Discount price must be lower than regular price");
 
       setLoading(true);
       setError(false);
-      const res = await fetch("/api/listening/create", {
+      const res = await fetch(`/api/listening/update/${params.listingId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -160,7 +178,7 @@ const CreateListening = () => {
           userRef: currentUser._id,
           bedRoom: formData.bedrooms,
           bathroom: formData.bathrooms,
-          imageUrls: formData.imageUrls
+          imageUrls: formData.imageUrls,
         }),
       });
       const data = await res.json();
@@ -168,23 +186,23 @@ const CreateListening = () => {
       if (data.success === false) {
         setError(data.message);
       }
-      const listingId = params.listingId
-      navigate(`/update-listing/${listingId}`);
-      console.log(params.listingId)
+      navigate(`/listening/${params.listingId}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);
     }
   };
+
+
   return (
     <>
       <main className="p-3 max-w-4xl mx-auto">
         <h1
-          className={`text-3xl font-semibold text-center my-7  ${
+          className={`text-3xl font-semibold text-center my-7 ${
             mode === "light" ? "text-black" : "text-white"
           }`}
         >
-          Create a Listing
+          Update Listening
         </h1>
         <form
           onSubmit={handleSubmit}
@@ -447,7 +465,7 @@ const CreateListening = () => {
               disabled={loading || uploading}
               className="p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
             >
-              {loading ? "Loading ..." : "Create-Listening"}
+              {loading ? "Loading ..." : "Edit-Listening"}
             </button>
             {error && <p className="text-red-700 text-sm">{error}</p>}
           </div>
@@ -457,4 +475,4 @@ const CreateListening = () => {
   );
 };
 
-export default CreateListening;
+export default UpdateListening;

@@ -34,7 +34,7 @@ app.use("/api/user/", Router);
 
 app.use("/api/auth", AuthRouter);
 
-app.use('/api/listening/', listeningRouter)
+app.use('/api/listening', listeningRouter)
 
 app.use((err, req, res, next) => {
   const statuscode = err.statuscode || 500;

@@ -1,3 +1,4 @@
+import Listening from "../Models/Listening.module.js";
 import User from "../Models/User.module.js";
 import { ErrorHandler } from "../utils/Error.js";
 import bcryptjs from "bcryptjs";
@@ -50,3 +51,16 @@ export const deleteUser = async(req, res, next) => {
         next(error)
      }
 }
+
+export const getListinguser = async (req, res, next) => {
+     if (req.user.id === req.params.id) {
+        try {
+            const listings = await Listening.find({userRef: req.params.id});
+            res.status(201).json(listings)
+        } catch (error) {
+            next(error)
+        }
+     } else {
+        return next(ErrorHandler(401, 'You can view only your own account'))
+     }
+} 
