@@ -7,6 +7,10 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import PrivateRoute from "./components/PrivateRoute";
+import CreateListening from "./Pages/CreateListening";
+import UpdateListening from "./Pages/UpdateLlistening";
+import Listing from "./Pages/Listing.jsx";
+// import { useSelector } from "react-redux";
 const App = () => {
   // const {currentUser} = useSelector((state) => state.user)
   return (
@@ -17,8 +21,14 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/sign-up" element={<Signup />} />
+          <Route path="/listening/:listingId" element={<Listing />} />
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/create-Listening" element={<CreateListening />} />
+            <Route
+              path="/update-listing/:listingId"
+              element={<UpdateListening />}
+            />
           </Route>
           <Route path="/about" element={<About />} />
         </Routes>
@@ -27,7 +37,5 @@ const App = () => {
     </ThemeProvider>
   );
 };
-
-
 
 export default App;

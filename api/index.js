@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import Router from "../api/Routes/User.routes.js";
 import AuthRouter from "../api/Routes/Auth.routes.js";
 import cookieParser from "cookie-parser";
+import listeningRouter from "./Routes/Listening.routes.js";
 
 const app = express();
 
@@ -32,6 +33,8 @@ app.use(cookieParser())
 app.use("/api/user/", Router);
 
 app.use("/api/auth", AuthRouter);
+
+app.use('/api/listening', listeningRouter)
 
 app.use((err, req, res, next) => {
   const statuscode = err.statuscode || 500;
