@@ -10,6 +10,8 @@ import PrivateRoute from "./components/PrivateRoute";
 import CreateListening from "./Pages/CreateListening";
 import UpdateListening from "./Pages/UpdateLlistening";
 import Listing from "./Pages/Listing.jsx";
+import Searchlistening from "./Pages/Searchlistening.jsx";
+// import Search from "./Pages/SEarch.jsx";
 // import { useSelector } from "react-redux";
 const App = () => {
   // const {currentUser} = useSelector((state) => state.user)
@@ -22,6 +24,7 @@ const App = () => {
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/sign-up" element={<Signup />} />
           <Route path="/listening/:listingId" element={<Listing />} />
+          <Route path="/search" element={<Searchlistening />} />
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
             <Route path="/create-Listening" element={<CreateListening />} />

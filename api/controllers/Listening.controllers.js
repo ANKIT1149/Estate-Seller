@@ -112,6 +112,8 @@ export const getListenings = async (req, res, next) => {
       .sort({ [sort]: order })
       .limit(limit)
       .skip(startIndex);
+
+      res.status(201).json(listening)
   } catch (error) {
     next(error);
   }
