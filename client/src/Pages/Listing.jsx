@@ -7,12 +7,16 @@ import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
 import { FaMapMarkerAlt, FaChair, FaParking, FaBath, FaBed, FaShare } from "react-icons/fa";
 import "swiper/swiper-bundle.css";
+import { useSelector } from "react-redux";
+import Contact from "../components/Contact";
 const Listing = () => {
   SwiperCore.use([Navigation]);
   const [formData, setFormData] = useState(null);
+  const {currentUser} = useSelector((state) => state.user)
   const [loading, isLoading] = useState(false);
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [contact, setContact] = useState(false)
   const params = useParams();
   useEffect(() => {
     const fetchlisting = async () => {
@@ -128,6 +132,12 @@ const Listing = () => {
                 {formData.furnished ? "Furnished" : "Unfurnished"}
               </li>
             </ul>
+
+            {currentUser._id && !contact && formData.userRef  !== currentUser._id && (
+               <button type="button" onClick={() => setContact(true)} className="bg-slate-800 p-3 mt-2 text-white uppercase font-bold font-serif rounded-lg">Contact Landlord</button>
+            )}
+
+            {contact && <Contact formData = {formData}/>}
           </div>
         </div>
       )}
