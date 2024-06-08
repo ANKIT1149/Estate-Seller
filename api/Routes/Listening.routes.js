@@ -1,5 +1,5 @@
 import express from 'express';
-import { Deletelistening, createListening, getListening, getListenings, updateListening } from '../controllers/Listening.controllers.js';
+import { Deletelistening, createListening, getListening, updateListening, getListings } from '../controllers/Listening.controllers.js';
 import { VerifyToken } from '../utils/Verifyuser.js';
 
 const listeningRouter = express.Router()
@@ -12,6 +12,6 @@ listeningRouter.post('/update/:id', VerifyToken, updateListening);
 
 listeningRouter.get('/get/:id', getListening);
 
-listeningRouter.get('/get', getListenings)
+listeningRouter.get('/get', getListings)
 
 export default listeningRouter;

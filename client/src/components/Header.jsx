@@ -13,7 +13,7 @@ const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [SearchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
-
+  console.log(SearchTerm)
   const handleSubmit = (e) => {
     e.preventDefault();
     const searchTerm = new URLSearchParams(window.location.search);

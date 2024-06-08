@@ -51,7 +51,7 @@ const UpdateListening = () => {
   useEffect(() => {
     const fetchlisting = async () => {
       const listingId = params.listingId;
-      console.log(listingId)
+      console.log(listingId);
       const res = await fetch(`/api/listening/get/${listingId}`);
       const data = await res.json();
       if (data.success === false) {
@@ -59,7 +59,7 @@ const UpdateListening = () => {
         return;
       }
       setFormData(data);
-      console.log(data)
+      console.log(data);
     };
 
     fetchlisting();
@@ -192,7 +192,6 @@ const UpdateListening = () => {
       setLoading(false);
     }
   };
-
 
   return (
     <>

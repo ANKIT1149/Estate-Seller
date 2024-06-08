@@ -1,3 +1,4 @@
+
 import Listening from "../Models/Listening.module.js";
 import { ErrorHandler } from "../utils/Error.js";
 
@@ -67,53 +68,52 @@ export const getListening = async (req, res, next) => {
   }
 };
 
-export const getListenings = async (req, res, next) => {
+export const getListings = async (req, res, next) => {
   try {
     const limit = parseInt(req.query.limit) || 9;
     const startIndex = parseInt(req.query.startIndex) || 0;
-
     let offer = req.query.offer;
 
-    if (offer === undefined || offer === "false") {
-      offer = { $in: [true, false] };
+    if (offer === undefined || offer === 'false') {
+      offer = { $in: [false, true] };
     }
 
     let furnished = req.query.furnished;
 
-    if (furnished === undefined || furnished === "false") {
-      furnished = { $in: [true, false] };
+    if (furnished === undefined || furnished === 'false') {
+      furnished = { $in: [false, true] };
     }
 
     let parking = req.query.parking;
 
-    if (parking === undefined || parking === "false") {
-      parking = { $in: [true, false] };
+    if (parking === undefined || parking === 'false') {
+      parking = { $in: [false, true] };
     }
 
     let type = req.query.type;
 
-    if (type === undefined || type === "all") {
-      type = { $in: ["rent", "sale"] };
+    if (type === undefined || type === 'all') {
+      type = { $in: ['sale', 'rent'] };
     }
 
-    const searchTerm = req.query.searchTerm || "";
+    const searchTerm = req.query.searchTerm || '';
 
-    const sort = req.query.sort || "Created At";
+    const sort = req.query.sort || 'createdAt';
 
-    const order = req.query.order || "desc";
+    const order = req.query.order || 'desc';
 
-    const listening = Listening.find({
-      name: { $regex: searchTerm, $options: "i" },
+    const listings = await Listening.find({
+      name: { $regex: searchTerm, $options: 'i' },
       offer,
+      furnished,
       parking,
       type,
-      furnished,
     })
       .sort({ [sort]: order })
       .limit(limit)
       .skip(startIndex);
 
-      res.status(201).json(listening)
+    return res.status(200).json(listings);
   } catch (error) {
     next(error);
   }
