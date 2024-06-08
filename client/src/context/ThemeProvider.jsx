@@ -2,7 +2,7 @@
 "use client"
 
 import { useState } from "react";
-import ThemeContext from "./ThemeContext";
+import ThemeContext from "./ThemeContext.jsx";
 
 const ThemeProvider = ({children}) => {
     const [mode, setMode] = useState("light");
