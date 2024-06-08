@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
@@ -9,6 +9,7 @@ import { FaMapMarkerAlt, FaChair, FaParking, FaBath, FaBed, FaShare } from "reac
 import "swiper/swiper-bundle.css";
 import { useSelector } from "react-redux";
 import Contact from "../components/Contact";
+import ThemeContext from "../context/ThemeContext";
 const Listing = () => {
   SwiperCore.use([Navigation]);
   const [formData, setFormData] = useState(null);
@@ -18,6 +19,7 @@ const Listing = () => {
   const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false)
   const params = useParams();
+  const {mode} = useContext(ThemeContext);
   useEffect(() => {
     const fetchlisting = async () => {
       try {
@@ -85,7 +87,7 @@ const Listing = () => {
             </p>
           )}
           <div className="flex flex-col max-w-4xl mx-auto p-3 my-7 gap-4">
-            <p className="text-2xl font-semibold">
+            <p className={`text-2xl font-semibold ${mode === 'light' ? 'text-black' : 'text-white'}`}>
               {formData.name} - ${" "}
               {formData.offer
                 ? formData.discountPrice.toLocaleString("en-US")
@@ -93,7 +95,7 @@ const Listing = () => {
               {formData.type === "rent" && " / month"}
             </p>
             <p className="flex items-center mt-6 gap-2 text-slate-600  text-sm">
-              <FaMapMarkerAlt className="text-green-700" />
+              <FaMapMarkerAlt className={`text-green-700`} />
               {formData.address}
             </p>
             <div className="flex gap-4">
@@ -106,8 +108,8 @@ const Listing = () => {
                 </p>
               )}
             </div>
-            <p className="text-slate-800">
-              <span className="font-semibold text-black">Description - </span>
+            <p className={`${mode === 'light' ? 'text-slate-800' : 'text-slate-200'} text-justify`}>
+              <span className={`font-semibold ${mode === 'light' ? 'text-black' : 'text-white'}`}>Description - </span>
               {formData.description}
             </p>
             <ul className="text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6">
