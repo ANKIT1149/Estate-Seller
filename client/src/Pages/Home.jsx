@@ -60,6 +60,12 @@ const Home = () => {
     };
   }, []);
 
+  // window.addEventListener('scroll', function() {
+  //    if (window.pageYOffset > 100) {
+  //         <Card />
+  //    }
+  // })
+
   return (
     <>
       <div>
@@ -98,7 +104,7 @@ const Home = () => {
                   background: `url(${item.imageUrls[0]}) center no-repeat`,
                   backgroundSize: "cover",
                 }}
-                className="h-[500px]"
+                className="h-[600px]"
                 key={item._id}
               ></div>
             </SwiperSlide>
@@ -168,6 +174,7 @@ const Home = () => {
             </div>
           </div>
         )}
+
       </div>
     </>
   );

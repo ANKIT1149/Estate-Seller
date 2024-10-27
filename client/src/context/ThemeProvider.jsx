@@ -2,10 +2,10 @@
 "use client"
 
 import { useState } from "react";
-import ThemeContext from "./ThemeContext.jsx";
+import ThemeContext from "./ThemeContext.js";
 
 const ThemeProvider = ({children}) => {
-    const [mode, setMode] = useState("light");
+    const [mode, setMode] = useState("dark");
     const toggleMode = () => {
          if (mode === 'light') {
             setMode('dark')

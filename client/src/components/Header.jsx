@@ -111,6 +111,27 @@ const Header = () => {
               About
             </NavLink>
           </li>
+
+          
+          {/* <li className="font-serif font-bold hidden sm:inline text-slate-700 hover:underline cursor-pointer">
+            <NavLink
+              to={`card/${currentUser._id}`}
+              // onClick={() => {menuClose(false)}}
+              className={({ isActive }) =>
+                ` font-bold font-serif capitalize leading-normal ${
+                  mode === "light"
+                    ? isActive
+                      ? "text-green-700"
+                      : "text-black"
+                    : isActive
+                    ? "text-green-700"
+                    : "text-white"
+                } text-xl `
+              }
+            >
+              About
+            </NavLink> */}
+          {/* </li> */}
           <li className="font-serif font-bold text-slate-700 hover:underline cursor-pointer">
             <NavLink
               to={currentUser ? "/profile" : "/sign-in"}

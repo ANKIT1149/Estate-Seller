@@ -11,7 +11,7 @@ import {
 import { app } from "../Firebase";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CreateListening = () => {
   // Variable defined
@@ -39,7 +39,6 @@ const CreateListening = () => {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const params = useParams()
   // const ImageRef = useRef();
 
   //   variable defined end
@@ -143,37 +142,42 @@ const CreateListening = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      if (formData.imageUrls.length < 1) return setError("You must upload at least one image");
+    if (currentUser) {
+      try {
+        if (formData.imageUrls.length < 1)
+          return setError("You must upload at least one image");
 
-      if (+formData.regularPrice < +formData.discountPrice) return setError("Discount price must be lower than regular price");
+        if (+formData.regularPrice < +formData.discountPrice)
+          return setError("Discount price must be lower than regular price");
 
-      setLoading(true);
-      setError(false);
-      const res = await fetch("/api/listening/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          userRef: currentUser._id,
-          bedRoom: formData.bedrooms,
-          bathroom: formData.bathrooms,
-          imageUrls: formData.imageUrls
-        }),
-      });
-      const data = await res.json();
-      setLoading(false);
-      if (data.success === false) {
-        setError(data.message);
+        setLoading(true);
+        setError(false);
+        const res = await fetch("/api/listening/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...formData,
+            userRef: currentUser._id,
+            bedRoom: formData.bedrooms,
+            bathroom: formData.bathrooms,
+            imageUrls: formData.imageUrls,
+          }),
+        });
+        const data = await res.json();
+        setLoading(false);
+        if (data.success === false) {
+          setError(data.message);
+        }
+
+        navigate(`/update-listing/${data._id}`);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
       }
-      const listingId = params.listingId
-      navigate(`/update-listing/${listingId}`);
-      console.log(params.listingId)
-    } catch (error) {
-      setError(error.message);
-      setLoading(false);
+    }else{
+      toast.error('Sign in your account')
     }
   };
   return (

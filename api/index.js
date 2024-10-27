@@ -35,11 +35,14 @@ app.use("/api/auth", AuthRouter);
 
 app.use("/api/listening", listeningRouter);
 
+
 app.use(express.static(path.join(__dirname, '/client/dist')));
 
 app.get('*', (req, res) => {
    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'))
 })
+
+
 app.use((err, req, res, next) => {
   const statuscode = err.statuscode || 500;
   const message = err.message || "Internal Server Error";
